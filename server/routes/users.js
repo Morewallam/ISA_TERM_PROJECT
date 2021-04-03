@@ -32,9 +32,8 @@ router.post("/", (req,res) => {
         error = true;
     }
     if(!error){
-        db.promise(`SELECT * FROM users WHERE username='${username}'`)
+        db.promise(`SELECT user_id FROM users WHERE username='${username}'`)
         .then((result) => {
-            console.log(result);
             if(result.length > 0){
                 res.status(400).end("Username already exists");
             }
