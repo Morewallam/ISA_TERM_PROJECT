@@ -2,9 +2,8 @@ const bcrypt = require('bcrypt');
 const passport = require('passport')
 const db = require('./../config/db');
 
-let loginCount = 0;
-let logoutCount = 0;
-let newUserCount = 0;
+const {incApi} = require("./admin");
+
 
 const express = require('express');
 const router = express.Router();
@@ -12,7 +11,7 @@ require('./../config/passport')(passport);
 
 
 router.post("/", (req,res) => {
-    newUserCount++;
+    incApi("post/user");
     let {username,password,repeatPassword,authorization} = req.body;
     
     let error = false
@@ -64,6 +63,10 @@ router.post("/", (req,res) => {
 })
 
 router.post('/login',
+    function(req,res,next){
+        incApi("post/user/login");
+        next();
+    },
     passport.authenticate('local', {
         successRedirect: '/admin',
         failureRedirect: '/login',
@@ -71,11 +74,14 @@ router.post('/login',
     })
 );
 
+
+
 router.post('/logout',function(req,res){
-    logoutCount++;
+    incApi("post/user/logout");
     req.logOut()
     res.redirect('/login');
 })
 
 
 module.exports = router;
+

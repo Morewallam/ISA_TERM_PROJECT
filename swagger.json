@@ -18,6 +18,10 @@
     {
       "name": "user",
       "description": "Operations about user"
+    },
+    {
+      "name": "admin",
+      "description": "Info about api usage"
     }
   ],
   "schemes": [
@@ -42,8 +46,10 @@
             "schema": {
               "type":"array",
               "items": {"$ref": "#/definitions/post"}
-              
             }
+          },
+          "500":{
+            "description":"Internal database error"
           }
         }
       },
@@ -66,8 +72,14 @@
           }
         ],
         "responses": {
+          "201":{
+            "description": "New post created"
+          },
           "405":{
             "description" :"Invalid Input"
+          },
+          "500":{
+            "description": "Internal Database error"
           }
         }
       },
@@ -88,6 +100,9 @@
           }
         ],
         "responses": {
+          "200":{
+            "description": "Successfull operation"
+          },
           "400": {
             "description": "Invalid ID supplied"
           },
@@ -96,6 +111,9 @@
           },
           "405": {
             "description": "Validation exception"
+          },
+          "500":{
+            "description": "Internal database error"
           }
         }
       }
@@ -126,6 +144,9 @@
           }
         ],
         "responses": {
+          "200":{
+            "description": "post successfully deleted"
+          },
           "400": {
             "description": "Invalid ID supplied"
           },
@@ -155,6 +176,9 @@
           }
         ],
         "responses": {
+          "201":{
+            "description": "New comment created"
+          },
           "405":{
             "description" :"Invalid Input"
           }
@@ -177,6 +201,9 @@
           }
         ],
         "responses": {
+          "200":{
+            "description": "Successfully updated the comment"
+          },
           "400": {
             "description": "Invalid ID supplied"
           },
@@ -214,8 +241,16 @@
             "schema": {
               "type":"array",
               "items": {"$ref": "#/definitions/comment"}
-              
             }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "post not found"
+          },
+          "500":{
+            "description": "Internal Database error"
           }
         }
       }
@@ -240,11 +275,17 @@
           }
         ],
         "responses": {
+          "200":{
+            "description": "Comment successfully deleted"
+          },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
             "description": "Comment not found"
+          },
+          "500":{
+            "description": "Internal database error"
           }
       }
     }
@@ -278,6 +319,45 @@
           },
           "400":{
             "description": "Error message"
+          },
+          "500":{
+            "description": "Internal database error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updated user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description": "Successfully updated user"
+          },
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500":{
+            "description": "Internal Database error"
           }
         }
       }
@@ -315,6 +395,9 @@
           },
           "400": {
             "description": "Invalid username/password supplied"
+          },
+          "500":{
+            "description": "Internal database error"
           }
         }
       }
@@ -348,7 +431,6 @@
         "description": "",
         "operationId": "getUserByName",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
@@ -372,44 +454,9 @@
           },
           "404": {
             "description": "User not found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Updated user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "name that need to be updated",
-            "required": true,
-            "type": "string"
           },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Updated user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid user supplied"
-          },
-          "404": {
-            "description": "User not found"
+          "500":{
+            "description": "Internal database error"
           }
         }
       },
@@ -439,6 +486,33 @@
           },
           "404": {
             "description": "User not found"
+          },
+          "500":{
+            "description": "Internal database error"
+          }
+        }
+      }
+    },
+    "/admin":{
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Get api usage",
+        "description": "",
+        "operationId": "getApi",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/admin"
+            }
+          },
+          "500": {
+            "description": "Database error"
           }
         }
       }
@@ -556,6 +630,67 @@
       },
       "xml": {
         "name": "User"
+      }
+    },
+    "admin":{
+      "type":"object",
+      "properties": {
+        "get/posts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "post/posts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "put/posts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "delete/posts/{postID}": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "post/comments": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "put/comments": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "get/comments/commentsForPost/{postID}": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "delete/comments/{commentID}}": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "post/user": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "post/user/login": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "post/user/logout": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "get/user/{username}": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "put/user/{username}": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "delete/user/{username}": {
+          "type": "integer",
+          "format": "int32"
+        }
       }
     },
     "ApiResponse": {

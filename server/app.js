@@ -14,14 +14,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(express.json());
+
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*");
-    // res.header('Access-Control-Allow-Headers','Content-type, Authorization, Content-Length, x-requested-with');
+    res.header('Access-Control-Allow-Headers','Content-type, Authorization, Content-Length, x-requested-with');
     next();
 })
 
 app.use('/v1/user',require('./routes/users'));
+app.use('/v1/admin',require('./routes/admin').router);
 app.listen(8000);
 
 
