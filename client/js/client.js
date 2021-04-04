@@ -37,3 +37,9 @@ function logIn() {
 }
 
 document.getElementById("login").onclick = logIn;
+
+function toBack() {
+    window.location.href = "./home.html";
+   }
+   
+   document.getElementById("back").onclick = toBack;
