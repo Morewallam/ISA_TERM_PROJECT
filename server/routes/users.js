@@ -67,11 +67,11 @@ router.post('/login',
         incApi("post/user/login");
         next();
     },
-    passport.authenticate('local', {
-        successRedirect: '/admin',
-        failureRedirect: '/login',
-        failureFlash: true
-    })
+    passport.authenticate('local'), 
+    function(req,res){
+        
+        res.status(200).end("Successful login" + req.user);
+    }
 );
 
 
