@@ -26,6 +26,7 @@ app.use(passport.session());
 
 
 app.use('/v1/user',require('./routes/users'));
+app.use('/v1/posts',require('./routes/posts'));
 app.use('/v1/admin',require('./routes/admin').router);
 app.listen(8000);
 

@@ -67,7 +67,7 @@
             "description": "post Object that needs to be added to the site",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/post"
+              "$ref": "#/definitions/newPost"
             }
           }
         ],
@@ -549,7 +549,23 @@
           "type":"string"
         },
         "user":{
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "newPost":{
+      "type": "object",
+      "properties": {
+        "title":{
           "type":"string"
+        },
+        "content":{
+          "type":"string"
+        },
+        "user":{
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
