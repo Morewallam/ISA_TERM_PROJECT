@@ -95,7 +95,7 @@
             "description": "post Object that needs to be updated on the site",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/post"
+              "$ref": "#/definitions/updatePost"
             }
           }
         ],
@@ -171,7 +171,7 @@
             "description": "Comment object too be added to a post",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/comment"
+              "$ref": "#/definitions/newComment"
             }
           }
         ],
@@ -196,7 +196,7 @@
             "description": "Comment Object that needs to be updated on the site",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/comment"
+              "$ref": "#/definitions/updateComment"
             }
           }
         ],
@@ -554,6 +554,21 @@
         }
       }
     },
+    "updatePost":{
+      "type": "object",
+      "properties": {
+        "id":{
+          "type":"integer",
+          "format": "int64"
+        },
+        "title":{
+          "type":"string"
+        },
+        "content":{
+          "type":"string"
+        }
+      }
+    },
     "newPost":{
       "type": "object",
       "properties": {
@@ -573,7 +588,8 @@
       "type": "object",
       "properties": {
         "postID":{
-          "type": "string"
+          "type":"integer",
+          "format": "int64"
         },
         "id":{
           "type":"integer",
@@ -582,10 +598,40 @@
         "content":{
           "type":"string"
         },
-        "user":{
-          "type":"string"
+        "userID":{
+          "type":"integer",
+          "format": "int64"
         }
         
+      }
+    },
+    "newComment":{
+      "type": "object",
+      "properties": {
+        "postID":{
+          "type":"integer",
+          "format": "int64"
+        },
+        "content":{
+          "type":"string"
+        },
+        "userID":{
+          "type":"integer",
+          "format": "int64"
+        }
+        
+      }
+    },
+    "updateComment":{
+      "type": "object",
+      "properties": {
+        "id":{
+          "type":"integer",
+          "format": "int64"
+        },
+        "content":{
+          "type":"string"
+        }
       }
     },
     "NewUser": {
