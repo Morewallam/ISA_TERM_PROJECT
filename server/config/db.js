@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
     database: "seanwall_term_project"
 });
 
+
 connection.connect(function(err){
     if(err){
         console.error('error connecting: ' +err.stack);
@@ -22,6 +23,4 @@ connection.promise = (sql) => {
             else{ reslove(result)}
         });
     });
-};
-
-module.exports = connection;
+}; module.exports = connection;

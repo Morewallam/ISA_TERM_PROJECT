@@ -40,6 +40,12 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [{
+          "name": "token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -60,7 +66,12 @@
         "operationId": "addpost",
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "parameters": [
+        "parameters": [{
+          "name": "token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        },
           {
             "in": "body",
             "name": "body",
@@ -89,6 +100,12 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
           {
             "in": "body",
             "name": "body",
@@ -129,9 +146,9 @@
         ],
         "parameters": [
           {
-            "name": "api_key",
+            "name": "token",
             "in": "header",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -166,6 +183,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
             "in": "body",
             "name": "body",
             "description": "Comment object too be added to a post",
@@ -190,6 +213,12 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
           {
             "in": "body",
             "name": "body",
@@ -227,7 +256,14 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
           "name": "postID",
           "in": "path",
           "description": "post id to get comment",
@@ -266,6 +302,12 @@
         ],
         "parameters": [
           {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "commentID",
             "in": "path",
             "description": "comment id to delete",
@@ -290,7 +332,7 @@
       }
     }
     },
-    "/user": {
+    "/user/register":{
       "post": {
         "tags": [
           "user"
@@ -324,7 +366,10 @@
             "description": "Internal database error"
           }
         }
-      },
+      }
+      
+    },
+    "/user": {
       "put": {
         "tags": [
           "user"
@@ -336,6 +381,12 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
           {
             "in": "body",
             "name": "body",
@@ -371,7 +422,6 @@
         "description": "",
         "operationId": "loginUser",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
@@ -389,9 +439,13 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "token":{
+                  "type":"string"
+                }
+              }
             }
-
           },
           "400": {
             "description": "Invalid username/password supplied"
@@ -411,15 +465,15 @@
         "description": "",
         "operationId": "logoutUser",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "Depricated"
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/user/{username}": {
@@ -434,6 +488,12 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "username",
             "in": "path",
@@ -473,6 +533,12 @@
         ],
         "parameters": [
           {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "username",
             "in": "path",
             "description": "The name that needs to be deleted",
@@ -504,12 +570,23 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/admin"
             }
+          },
+          "400":{
+            "description": "Not an admin"
           },
           "500": {
             "description": "Database error"

@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session')
 const passport = require('passport');
+require('./config/passport')(passport);
 const app = express();
 
 require('dotenv').config();
@@ -17,17 +18,18 @@ app.use(function(req,res,next){
     next();
 })
 
-app.use(session({
-    secret : 'secret',
-    resave : true,
-    saveUninitialized : true}));
+// app.use(session({
+//     secret : 'secret',
+//     resave : true,
+//     saveUninitialized : true}));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
+app.use('/v1/user',require('./routes/auth'));
 
-app.use('/v1/user',require('./routes/users'));
-app.use('/v1/posts',require('./routes/posts'));
-app.use('/v1/admin',require('./routes/admin').router);
+app.use('/v1/user',passport.authenticate('jwt',{session: false}),require('./routes/users'));
+app.use('/v1/posts',passport.authenticate('jwt',{session: false}),require('./routes/posts'));
+app.use('/v1/admin',passport.authenticate('jwt',{session: false}),require('./routes/admin').router);
 app.listen(8000);
 
 

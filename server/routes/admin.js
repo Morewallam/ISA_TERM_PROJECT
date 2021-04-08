@@ -13,12 +13,18 @@ function incApi(api){
 }
 
 router.get("/",(req,res)=>{
-    db.promise(`SELECT * FROM admin`)
-    .then((result) => {
-        res.status(200).json(result[0])
-    }).catch((err) => {
-        res.status(500).end("Database failure")
-    });
+    if(req.user.auth != 'admin'){
+        res.status(400).send("User is not an admin")
+    }
+    else{
+        db.promise(`SELECT * FROM admin`)
+        .then((result) => {
+            res.status(200).json(result[0])
+        }).catch((err) => {
+            res.status(500).end("Database failure")
+        });
+    }
+    
 })
 
 
