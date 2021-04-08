@@ -76,7 +76,11 @@ router.post('/login',
         req.login(user, { session: false }, (error) => {
               if (error) return next(error);
 
-              const body = { user_id: user.user_id, username:user.username, auth: user.permissions  };
+              const body = {
+                   user_id: user.user_id,
+                   username:user.username, 
+                   auth: user.permissions  
+                };
               const token = jwt.sign({ user: body }, 'TOP_SECRET');
 
               return res.status(200).json({ token });

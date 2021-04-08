@@ -7,9 +7,20 @@ const router = express.Router();
 
 router.get('/',(req,res)=>{
     incApi("get/posts")
-    db.promise("SELECT post_id AS id, title, content, user_id AS user FROM posts")
+    db.promise("SELECT post_id AS id, title, content, users.user_id AS userID, username FROM posts JOIN users ON users.user_id = posts.user_id")
     .then((result) => {
-        res.status(200).send(result);
+        let formatResult = [];
+        for(let i =0; i < result.length; i++){
+            formatResult.push(
+                {id:result[i].id
+                ,title:result[i].title
+                ,content:result[i].content
+                ,user:{
+                    userID:result[i].userID,
+                    username:result[i].username
+                }} )
+        }
+        res.status(200).send(formatResult);
     }).catch((err) => {
         console.log(err)
         res.status(500).send("Internal Database Error.")

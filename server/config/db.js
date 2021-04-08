@@ -19,7 +19,7 @@ connection.connect(function(err){
 connection.promise = (sql) => {
     return new Promise((reslove, reject)=>{
         connection.query(sql, (err, result) =>{
-            if(err){reject(new Error());}
+            if(err){console.error(err); reject(new Error());}
             else{ reslove(result)}
         });
     });

@@ -12,7 +12,7 @@ router.post('/',(req,res)=>{
     if(!postID||!content||!userID){
         res.status(405).send("Invalid Input")
     }else{
-        if(!Number.isInteger(user)||!Number.isInteger(postID)){
+        if(!Number.isInteger(userID)||!Number.isInteger(postID)){
             res.status(405).send("Invalid Input")
         }else{
             db.promise(`Select post_id FROM posts WHERE post_id = ${postID}`)
@@ -60,7 +60,7 @@ router.put('/',(req,res)=>{
     incApi("put/comments")
     let {id, content} = req.body;
 
-    if(!id||!content||Number.isInteger(id)){
+    if(!id||!content||!Number.isInteger(id)){
         res.status(405).send("Invalid input")
     }else{
         db.promise(`Select comment_id FROM comments WHERE comment_id = ${id}`)
@@ -84,15 +84,29 @@ router.put('/',(req,res)=>{
     
 })
 router.get('/commentsForPost/:postID',(req,res)=>{
+    
+    incApi("get/comments/commentsForPost/{postID}")
     let postID = Number.parseInt(req.params['postID'])
     if(!postID||!Number.isInteger(postID)){
         res.status(400).send("Invalid ID supplied");
     }else{
-        db.query(`SELECT post_ID AS postID, comment_id AS id, content, user_id AS userID WHERE post_ID = ${postID}`)
+        db.promise(`SELECT post_ID AS postID, comment_id AS id, content, users.user_id AS userID, users.username FROM comments JOIN users ON users.user_id = comments.user_id WHERE post_ID = ${postID}`)
         .then((result) => {
-            res.status(200).json(result);
+            let formatResult = [];
+            for(let i =0; i < result.length; i++){
+                formatResult.push(
+                    {postID:result[i].postID
+                    ,id:result[i].id
+                    ,title:result[i].title
+                    ,content:result[i].content
+                    ,user:{
+                        userID:result[i].userID,
+                        username:result[i].username
+                    }} )
+            }
+        res.status(200).send(formatResult);
         }).catch((err) => {
-            res.send(500).send("Internal Database error")
+            res.status(500).send("Internal Database error")
         });
     }
 })

@@ -29,6 +29,7 @@ app.use('/v1/user',require('./routes/auth'));
 
 app.use('/v1/user',passport.authenticate('jwt',{session: false}),require('./routes/users'));
 app.use('/v1/posts',passport.authenticate('jwt',{session: false}),require('./routes/posts'));
+app.use('/v1/comments',passport.authenticate('jwt',{session: false}),require('./routes/comments'));
 app.use('/v1/admin',passport.authenticate('jwt',{session: false}),require('./routes/admin').router);
 app.listen(8000);
 
