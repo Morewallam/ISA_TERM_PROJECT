@@ -626,8 +626,16 @@
           "type":"string"
         },
         "user":{
-          "type": "integer",
-          "format": "int64"
+          "type":"object",
+          "properties": {
+            "userID":{
+              "type":"integer",
+              "format": "int64"
+            },
+            "username":{
+              "type":"string"
+            }
+          }
         }
       }
     },
@@ -675,10 +683,19 @@
         "content":{
           "type":"string"
         },
-        "userID":{
-          "type":"integer",
-          "format": "int64"
+        "user":{
+          "type":"object",
+          "properties": {
+            "userID":{
+              "type":"integer",
+              "format": "int64"
+            },
+            "username":{
+              "type":"string"
+            }
+          }
         }
+        
         
       }
     },
