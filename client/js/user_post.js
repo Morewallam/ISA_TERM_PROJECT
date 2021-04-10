@@ -17,5 +17,21 @@ function loadPost() {
 function loadUser(){
     const xhttp = new XMLHttpRequest();
 }
+
+function deletePost() {
+    let userDecision = window.confirm("Are you sure you would like delete the post?");
+    if(userDecision) {
+        window.location.href = "./delete_succeed.html";
+    }
+}
+function editPost() {
+
+}
+function deleteComment() {
+
+}
+function editComment() {
+
+}
 document.getElementById("submit").onclick = sumbitNewComment;
 window.onload = loadUser,loadPost,loadPostPastEntry;

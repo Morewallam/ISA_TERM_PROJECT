@@ -43,18 +43,34 @@ function loadPostPastEntry() {
     entryContainer.id = "allEntry";
     for (let i = 0; i < testEntry.length; i++) {
         let entry = document.createElement("div");
+        entry.className = "mt-3 border border-dark border-bottom bg-light"
+        entry.id = testEntry[i]["id"];
+
         let entryTitle = document.createElement("div");
         let entryContent = document.createElement("div");
         let entryUser = document.createElement("div");
+
+        entryTitle.className = "fs-4";
+
         entryTitle.innerText = testEntry[i]["title"];
         console.log(testEntry[i]["user"]);
         entryUser.innerText = testEntry[i]["user"]["username"];
         entryContent.innerText = testEntry[i]["content"];
+
         entry.appendChild(entryTitle);
         entry.appendChild(entryUser);
         entry.appendChild(entryContent);
+
         entryContainer.appendChild(entry);
     }
     document.getElementById("test").appendChild(entryContainer);
 }
 window.onload = loadPostPastEntry;
+
+function deletePost() {
+
+}
+
+function editPost() {
+
+}
