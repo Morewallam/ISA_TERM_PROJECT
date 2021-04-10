@@ -49,13 +49,10 @@ router.post('/',(req,res)=>{
             });
         }
     }
-
-
-
-
-
-
 })
+
+
+
 router.put('/',(req,res)=>{
     incApi("put/comments")
     let {id, content} = req.body;

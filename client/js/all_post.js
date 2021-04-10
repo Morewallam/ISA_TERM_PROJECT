@@ -5,8 +5,8 @@ function loadPostPastEntry() {
     console.log(token);
     let loadPostPastEntryUrl = root + "posts";
     xhttp.open("GET", loadPostPastEntryUrl);
-    xhttp.setRequestHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500/");
-    xhttp.setRequestHeader("Authorization", 'Bearer {' + token+'}');
+    xhttp.setRequestHeader("Authorization", "Bearer " +token);
+    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     // xhttp.withCredentials = true;
     let testEntry = [
         {
@@ -28,13 +28,9 @@ function loadPostPastEntry() {
             }
         }
     ];
-    xhttp.send();
+    xhttp.send(null);
 
     xhttp.onreadystatechange = function () {
-        console.log(this.readyState);
-        console.log(this.status);
-        console.log(this.HEADERS_RECEIVED);
-        console.log(this.responseText);
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
         }

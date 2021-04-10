@@ -13,9 +13,16 @@ app.use(express.json());
 
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Credentials", "true")
     res.header('Access-Control-Allow-Headers','Access-Control-Allow-Origin,Content-type, Authorization, Content-Length, x-requested-with');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS, DELETE');
+
+  if("OPTIONS' == req.method"){
+    res.sendStatus(204);
+  }else{
     next();
+  }
+
 })
 
 // app.use(session({

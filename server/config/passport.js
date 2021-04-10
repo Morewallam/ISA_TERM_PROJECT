@@ -13,7 +13,7 @@ module.exports = function(passport){
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromHeader("authorization")
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
       },
       async (token,done) =>{
           try {
