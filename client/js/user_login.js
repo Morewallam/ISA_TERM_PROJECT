@@ -18,7 +18,8 @@ function logIn() {
     let logPassword = document.getElementById("userPassword").value;
     console.log(logUser);
     console.log(logPassword);
-    xhttp.send('{"username" : "bob", "password" : "123"}');
+    let data = {username:logUser,password:logPassword};
+    xhttp.send(JSON.stringify(data));
     xhttp.onreadystatechange = function () {
         console.log(this.readyState);
         console.log(this.status);

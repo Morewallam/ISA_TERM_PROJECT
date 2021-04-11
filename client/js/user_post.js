@@ -1,4 +1,7 @@
 let token = sessionStorage.getItem("token");
+if(!token){
+    window.location.href = "./user_login.html";
+}
 let testid = 2;
 const root = "https://seanwallace.ca/v1/";
 function loadCurrentPost() {

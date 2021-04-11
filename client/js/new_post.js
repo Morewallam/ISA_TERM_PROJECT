@@ -1,4 +1,8 @@
 let token = sessionStorage.getItem("token");
+if(!token){
+    window.location.href = "./user_login.html";
+}
+
 var payload = JSON.parse(window.atob(token.split('.')[1])); 
 const root = "https://seanwallace.ca/v1/";
 function loadUserStatus() {

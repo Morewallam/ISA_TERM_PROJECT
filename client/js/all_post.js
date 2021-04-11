@@ -1,4 +1,7 @@
 let token = sessionStorage.getItem("token");
+if(!token){
+    window.location.href = "./user_login.html";
+}
 const root = "https://seanwallace.ca/v1/";
 function loadUserStatus() {
     var payload = JSON.parse(window.atob(token.split('.')[1])); 
@@ -52,7 +55,7 @@ function loadPostPastEntry() {
     };
 }
 function toNewPost() {
-    window.location.href = "./user_login.html";
+    window.location.href = "./new_post.html";
 }
 document.getElementById("createPost").onclick = toNewPost;
 
