@@ -171,7 +171,9 @@ function loadComment() {
 
     const xhttp = new XMLHttpRequest();
     console.log(token);
-
+    var payload = JSON.parse(window.atob(token.split('.')[1])); 
+    console.log(payload["user"]["username"]);
+    console.log(payload["user"]);
     let currentPostUrl = window.location.href;
     console.log(currentPostUrl);
     console.log(params.get("id"));
@@ -191,10 +193,13 @@ function loadComment() {
         for (let i = 0; i < commentCollection.length; i++) {
             let comment = document.createElement("div");
             comment.className = "mt-3 border border-dark border-bottom bg-light"
-            comment.id = entryCollection[i]["id"];
-            entry.onclick=()=>{
-                window.location.href = "./user_post.html?id="+entry.id;
-            }
+            comment.id = commentCollection[i]["id"];
+            // entry.onclick=()=>{
+            //     window.location.href = "./user_post.html?id="+entry.id;
+            // }
+            let currentUserID = payload["user"]["id"];
+            let commentUserID = commentCollection[i]["user"]["userID"];
+            
             let commentContent = document.createElement("div");
             let commentUser = document.createElement("div");
 
@@ -204,6 +209,26 @@ function loadComment() {
 
             comment.appendChild(entryUser);
             comment.appendChild(entryContent);
+
+            if (currentUserID === commentUserID) {
+                let buttonContainer = document.createElement("div");
+                buttonContainer.className = "col self-align-end";
+                buttonContainer.id = "commentButtonContainer" + commentCollection[i]["id"];
+
+                let editButton = document.createElement("button");
+                let deleteButton = document.createElement("button");
+
+                editButton.onclick = editComment;
+                deleteButton.onclick = deleteComment;
+
+                editButton.innerText = "Edit comment";
+                deleteButton.innerText = "Delete comment";
+
+                buttonContainer.appendChild(editButton);
+                buttonContainer.appendChild(deleteButton);
+
+                comment.appendChild(buttonContainer);
+            }
     
             commentContainer.appendChild(comment);
             }
