@@ -1,3 +1,15 @@
+let token = sessionStorage.getItem("token");
+if(!token){
+    window.location.href = "./user_login.html";
+}
+const root = "https://seanwallace.ca/v1/";
+function loadUserStatus() {
+    var payload = JSON.parse(window.atob(token.split('.')[1])); 
+    console.log(payload["user"]["username"]);
+    console.log(payload["user"]);
+    document.getElementById("userNameContainer").innerText = "Logged in as " + payload["user"]["username"];
+}
+
 
 function toBack() {
     window.location.href = "./home.html";
@@ -11,6 +23,7 @@ function showAdmin() {
     xhttp.open("GET", adminurl, true);
     xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("Authorization","Bearer "+token);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         console.log(this.readyState);

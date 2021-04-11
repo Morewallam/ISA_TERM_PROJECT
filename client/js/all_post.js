@@ -8,9 +8,15 @@ function loadUserStatus() {
     console.log(payload["user"]["username"]);
     console.log(payload["user"]);
     document.getElementById("userNameContainer").innerText = "Logged in as " + payload["user"]["username"];
+    let adminBtn = document.getElementById("adminButton");
     if (payload["user"]["auth"] !== "admin") {
-        document.getElementById("adminButton").style.visibility = "hidden";
+        adminBtn.style.visibility = "hidden";
+    }else{
+        adminBtn.onclick = ()=>{
+            window.location.href = "./admin.html"
+        }
     }
+    
 }
 function loadPostPastEntry() {
     const xhttp = new XMLHttpRequest();
