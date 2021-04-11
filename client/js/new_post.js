@@ -29,7 +29,9 @@ function submitNewPost() {
     let newPostUser = payload["user"]["user_id"];
     let newPostContent = document.getElementById("postEntryContent");
     let newPostTitle = document.getElementById("postEntryTitle");
-    let data = {title:newPostTitle, content:newPostContent, user:newPostUser};
+    console.log(newPostContent.value);
+    console.log(newPostTitle.value);
+    let data = {title: newPostTitle.value.trim(), content:newPostContent.value.trim(), user:newPostUser};
     xhttp.send(JSON.stringify(data));
     xhttp.onreadystatechange = function(){
         let a = this.HEADERS_RECEIVED;
