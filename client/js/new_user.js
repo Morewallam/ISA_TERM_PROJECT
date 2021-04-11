@@ -5,7 +5,12 @@ function createNewUser() {
     xhttp.open("POST", createuserurl, true);
     xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send('{"username":"bob", "password": "123",  "repeatPassword":"123","authorization" : "admin"}');
+    let newUserName = document.getElementById("userName").value.trim();
+    let newUserPassword = document.getElementById("userPassword").value.trim();
+    let newUserRepeatPassword = document.getElementById("userCheckPassword").value.trim();
+    let newUserAuth = document.getElementById("userAuth").value.trim();
+    let newUserData = {username:newUserName,password:newUserPassword,repeatPassowrd:newUserPassword,authorization:newUserAuth};
+    xhttp.send(JSON.stringify(newUserData));
     xhttp.onreadystatechange = function () {
         console.log(this.readyState);
         console.log(this.status);

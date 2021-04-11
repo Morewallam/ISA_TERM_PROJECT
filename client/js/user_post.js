@@ -38,9 +38,7 @@ function loadCurrentPost() {
                 }
             }
         }
-        
     };
-   
 }
 
 function sumbitNewComment() {
@@ -57,26 +55,62 @@ function loadUser(){
 }
 
 function deletePost() {
+    const xhttp = new XMLHttpRequest();
+    let currentPostId = parseInt(params.get("id"));
+    let deletePosturl = root + "posts/" + currentPostId;
+    console.log(deletePosturl);
+    console.log("clc");
     let userDecision = window.confirm("Are you sure you would like delete the post?");
     if(userDecision) {
-        window.location.href = "./delete_succeed.html";
+        console.log("going to dl");
+        xhttp.open("DELETE",deletePosturl);
+        xhttp.setRequestHeader("Authorization", "Bearer " +token);
+        xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(null);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
     }
 }
+function editPost() {
+    const xhttp = new XMLHttpRequest();
+    let currentPostId = parseInt(params.get("id"));
+    console.log(currentPostId); 
+    let editUrl = root + "posts";
+    console.log(editUrl);
+    let userDecision = window.confirm("Are you sure you would like edit the post?");
+    if(userDecision) {
+        console.log("going to edit");
+        let newTitle = window.prompt("Please enter the new title");
+        let newContent = window.prompt("Please enter the new content");
+        xhttp.open("PUT",editUrl);
+        xhttp.setRequestHeader("Authorization", "Bearer " +token);
+        xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        let newPostData = {id:currentPostId,title:newTitle.trim(),content:newContent.trim()};
+        xhttp.send(JSON.stringify(newPostData));
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
+    }
+}
+document.getElementById("postEdit").onclick = editPost;
 function deleteComment() {
     const xhttp = new XMLHttpRequest();
 }
 function editComment() {
 
 }
-function deletePost() {
 
-}
 
-function editPost() {
-
-}
 function load() {
     loadCurrentPost();
 }
 // document.getElementById("submit").onclick = sumbitNewComment;
+document.getElementById("postDelete").onclick = deletePost;
 window.onload = load;
