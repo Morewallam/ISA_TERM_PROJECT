@@ -38,7 +38,7 @@ function loadPostPastEntry() {
             entry.className = "mt-3 border border-dark border-bottom bg-light"
             entry.id = entryCollection[i]["id"];
             entry.onclick=()=>{
-                window.location.href = "./post.html?id="+entry.id;
+                window.location.href = "./user_post.html?id="+entry.id;
             }
             let entryTitle = document.createElement("div");
             let entryContent = document.createElement("div");

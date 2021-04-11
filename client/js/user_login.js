@@ -3,7 +3,6 @@ if(token){
     window.location.href = "./all_post.html";
 }
 
-
 function tocreateUser() {
     window.location.href = "./new_user.html";
    }
