@@ -41,18 +41,7 @@ function loadCurrentPost() {
     };
 }
 
-function sumbitNewComment() {
-    const xhttp = new XMLHttpRequest();
-}
 
-function loadPost() {
-    const xhttp = new XMLHttpRequest();
-
-}
-
-function loadUser(){
-    const xhttp = new XMLHttpRequest();
-}
 
 function deletePost() {
     const xhttp = new XMLHttpRequest();
@@ -100,13 +89,87 @@ function editPost() {
     }
 }
 document.getElementById("postEdit").onclick = editPost;
-function deleteComment() {
+
+function sumbitNewComment() {
     const xhttp = new XMLHttpRequest();
+    let submitCommenturl = root + "comments";
+    
+    let currentPostId = parseInt(params.get("id"));
+
+    xhttp.open("POST",submitCommenturl,true);
+
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("Authorization", "Bearer " +token);
+    xhttp.setRequestHeader('Access-Control-Allow-Origin','*')
+
+
+    let newCommentUser = payload["user"]["user_id"];
+    let newCommentContent = document.getElementById("userEnterNewCommentEntry").value.trim();
+
+
+    let commentdata = {postID: currentPostId, content:newCommentContent, userID:newCommentUser};
+    xhttp.send(JSON.stringify(commentdata));
+    xhttp.onreadystatechange = function(){
+        let a = this.HEADERS_RECEIVED;
+        console.log(a);
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }
+    };
+}
+
+
+function deleteComment() {
+    let currentCommentId = this.parentNode.id;
+
+    const xhttp = new XMLHttpRequest();
+    
+    let deleteCommentUrl = root + "comments/" + currentCommentId;
+    console.log(deleteCommentUrl);
+    console.log("clc");
+    let userDecision = window.confirm("Are you sure you would like delete the comment?");
+    if(userDecision) {
+        console.log("going to dl");
+        xhttp.open("DELETE",deleteCommentUrl);
+        xhttp.setRequestHeader("Authorization", "Bearer " +token);
+        xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(null);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
+    }
 }
 function editComment() {
+    let currentCommentId = this.parentNode.id;
+    const xhttp = new XMLHttpRequest();
 
+    console.log(currentCommentId); 
+    let editCommentUrl = root + "comments";
+    console.log(editUrl);
+    let userDecision = window.confirm("Are you sure you would like edit the comment?");
+    if(userDecision) {
+        console.log("going to edit");
+        let newCommentContent = window.prompt("Please enter the new content");
+        xhttp.open("PUT",editCommentUrl);
+        xhttp.setRequestHeader("Authorization", "Bearer " +token);
+        xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        let newCommentData = {id:currentCommentId,content:newCommentContent.trim()};
+        xhttp.send(JSON.stringify(newCommentData));
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
+    }
 }
 
+function loadComment() {
+
+}
 
 function load() {
     loadCurrentPost();
