@@ -127,6 +127,7 @@ function sumbitNewComment() {
             console.log(this.responseText);
         }
     };
+    window.alert("Comment added");
 }
 document.getElementById("userSubmitNewCommentEntry").onclick = sumbitNewComment;
 
@@ -152,6 +153,7 @@ function deleteComment() {
             }
         };
     }
+    window.alert("Comment delete");
 }
 function editComment() {
     let currentCommentId = parseInt(this.parentNode.id);
@@ -177,6 +179,7 @@ function editComment() {
             }
         };
     }
+    window.alert("Comment edited");
 }
 
 function loadComment() {
