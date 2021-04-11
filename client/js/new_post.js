@@ -23,13 +23,14 @@ function submitNewPost() {
 
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("Authorization", "Bearer " +token);
-    
+    xhttp.setRequestHeader('Access-Control-Allow-Origin','*')
 
 
     let newPostUser = payload["user"]["user_id"];
     let newPostContent = document.getElementById("postEntryContent");
     let newPostTitle = document.getElementById("postEntryTitle");
-    xhttp.send('{"title":'+ newPostTitle +',"content":' + newPostContent +',"user":' + newPostUser +'}');
+    let data = {title:newPostTitle, content:newPostContent, user:newPostUser};
+    xhttp.send(JSON.stringify(data));
     xhttp.onreadystatechange = function(){
         let a = this.HEADERS_RECEIVED;
         console.log(a);
