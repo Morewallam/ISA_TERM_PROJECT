@@ -44,6 +44,7 @@ function submitNewPost() {
             console.log(this.responseText);
         }
     };
+    window.alert("New Post created");
 }
 document.getElementById("submitPost").onclick = submitNewPost;
 function load() {
