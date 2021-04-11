@@ -169,6 +169,47 @@ function editComment() {
 
 function loadComment() {
 
+    const xhttp = new XMLHttpRequest();
+    console.log(token);
+
+    let currentPostUrl = window.location.href;
+    console.log(currentPostUrl);
+    console.log(params.get("id"));
+    let currentPostId = parseInt(params.get("id"));
+    let loadPostCommentUrl = root + "comments/commentsForPost/"+currentPostId;
+    xhttp.open("GET", loadPostCommentUrl);
+    
+    xhttp.setRequestHeader("Authorization", "Bearer " +token);
+    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhttp.send(null);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+           var commentCollection = JSON.parse(this.responseText);
+           console.log(commentCollection);
+           let commentContainer = document.createElement("div");
+           commentContainer.id = "allComment";
+        for (let i = 0; i < commentCollection.length; i++) {
+            let comment = document.createElement("div");
+            comment.className = "mt-3 border border-dark border-bottom bg-light"
+            comment.id = entryCollection[i]["id"];
+            entry.onclick=()=>{
+                window.location.href = "./user_post.html?id="+entry.id;
+            }
+            let commentContent = document.createElement("div");
+            let commentUser = document.createElement("div");
+
+            console.log(entryCollection[i]["user"]);
+            commentUser.innerText = commentCollection[i]["user"]["username"];
+            commentContent.innerText = commentCollection[i]["content"];
+
+            comment.appendChild(entryUser);
+            comment.appendChild(entryContent);
+    
+            commentContainer.appendChild(comment);
+            }
+        }
+        document.getElementById("commentPastEntry").appendChild(commentContainer);
+    };
 }
 
 function load() {
