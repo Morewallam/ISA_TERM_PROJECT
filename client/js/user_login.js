@@ -26,7 +26,7 @@ function logIn() {
             console.log(this.responseText);
             let tokenParsed = JSON.parse(this.responseText);
             sessionStorage.setItem("token", tokenParsed["token"]);
-            window.location.href = "./all_posts.html";
+            window.location.href = "./all_post.html";
         }
     };
     console.log(sessionStorage.getItem("token"));

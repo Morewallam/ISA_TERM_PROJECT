@@ -10,8 +10,17 @@
 </head>
 <body>
     <div id= "userinfoContainer"> 
-        <div id = "userName">
-            Placeholder Name
+        <div class = "row" id = "userPanel">
+            <div class="col-auto fs-4" id = "userNameContainer">
+                Placeholder userName for panel
+            </div>
+            <div class = "col-auto" id = "adminButtonContainer">
+                <!-- style="visibility: hidden;" -->
+                <button id = "adminButton">Admin</button>
+            </div>
+            <div class = "col-auto" id = "createPostbuttonContainer">
+                <button id = "createPost">Create Post</button>
+            </div>
         </div>
     </div>
     <div class = "row" id = "postTitleLabel">
@@ -30,5 +39,6 @@
         </textarea>
     </div>
     <button id = "submitPost">Submit</button>
+    <script src = "./js/new_post.js"></script>
 </body>
 </html>

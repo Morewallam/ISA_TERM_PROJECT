@@ -1,6 +1,7 @@
 let token = sessionStorage.getItem("token");
+let testid = 2;
 const root = "https://seanwallace.ca/v1/";
-function loadPostPastEntry() {
+function loadCurrentPost() {
     const xhttp = new XMLHttpRequest();
     let loadPostPastEntryUrl = root + "posts";
     xhttp.open()
@@ -24,13 +25,17 @@ function deletePost() {
         window.location.href = "./delete_succeed.html";
     }
 }
-function editPost() {
-
-}
 function deleteComment() {
 
 }
 function editComment() {
+
+}
+function deletePost() {
+
+}
+
+function editPost() {
 
 }
 document.getElementById("submit").onclick = sumbitNewComment;
