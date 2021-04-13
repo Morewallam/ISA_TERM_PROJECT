@@ -9,7 +9,7 @@ function createNewUser() {
     let newUserPassword = document.getElementById("userPassword").value.trim();
     let newUserRepeatPassword = document.getElementById("userCheckPassword").value.trim();
     let newUserAuth = document.getElementById("userAuth").value.trim();
-    let newUserData = {username:newUserName,password:newUserPassword,repeatPassowrd:newUserPassword,authorization:newUserAuth};
+    let newUserData = {username:newUserName,password:newUserPassword,repeatPassword:newUserPassword,authorization:newUserAuth};
     xhttp.send(JSON.stringify(newUserData));
     xhttp.onreadystatechange = function () {
         console.log(this.readyState);
